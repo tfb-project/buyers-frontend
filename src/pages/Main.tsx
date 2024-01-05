@@ -1,36 +1,36 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-axios.defaults.headers.get['Content-Type'] ='application/x-www-form-urlencoded';
+export interface Buyer {
+    id: number,
+    name: string,
+    link: string,
+}
 
 const Main = () => {
-    const [buyers, setBuyers] = useState([])
+    const [buyers, setBuyers] = useState<Buyer[]>([])
     useEffect(() => {
         if (buyers.length > 0) return
-        axios.get('http://158.160.139.191:50051/buyers', {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                // 'Content-Type': 'application/json',
-            },
-            withCredentials: false,
-        }).then(({data: buyers}) => {
-            console.log(buyers)
-            setBuyers(buyers)
+        axios.get('https://education.kfirsov.com/tfb/buyers').then(({data: buyers}: {data: {buyers: Buyer[]}}) => {
+            setBuyers(buyers.buyers)
         }).catch((err) => {
             console.log(err)
         })
     })
 
+
     return (
         <div>
-            {buyers.map((buyer: any) => {
-                return (
-                    <div>
-                        <p>{buyer.name}</p>
-                        <p>{buyer.email}</p>
-                    </div>
-                )
-            })
+            {
+                buyers.map((buyer: Buyer) => {
+                    return (
+                        <div key={buyer.id}>
+                            <p>id: {buyer.id}</p>
+                            <p>name: {buyer.name}</p>
+                            <a href={buyer.link}>link</a>
+                        </div>
+                    )
+                })
             }
         </div>
     )
