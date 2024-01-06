@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
-import {Card} from '@gravity-ui/uikit';
+import {Button, Card} from '@gravity-ui/uikit';
 
 import Draggable from 'react-draggable';
 
@@ -13,6 +13,7 @@ export interface Buyer {
 
 const Main = () => {
     const [buyers, setBuyers] = useState<Buyer[]>([])
+    const [buyerId, setBuyerId] = useState<number>(0)
     const [coords, setCoords] = useState({x: 0, y: 0});
     useEffect(() => {
         if (buyers.length > 0) return
@@ -28,6 +29,10 @@ const Main = () => {
             x: event.clientX,
             y: event.clientY,
         });
+    };
+
+    const onclk = (event: any) => {
+        setBuyerId((buyerId + 1) % buyers.length);
     };
 
     const startDrag = (e: any) => {
@@ -49,24 +54,23 @@ const Main = () => {
 
     return (
         <div className="h-dvh flex justify-center items-center">
-            <Draggable
-                defaultPosition={{x: 0, y: 0}}
-                handle=".handle"
-                scale={1}
-                onStart={() => console.log('sta')}
-                onDrag={ev => console.log(ev)}
-            >
-                <div className="handle">
-                    <Card className="text-center">
-                        <img className="rounded-t-[7px]"
-                             src="./fiz.png" alt="" draggable={false}/>
-                        <p>{buyers[0].name}</p>
-                        <p>{buyers[0].link}</p>
-                    </Card>
+            <div className="flex flex-col gap-10">
+                <div className="flex justify-center items-center">
+                    <div className="handle">
+                        <Card className="text-center">
+                            <img className="rounded-t-[7px] max-w-xl"
+                                 src="https://mygardenia.ru/uploads/pers1.jpg" alt="" draggable={false}/>
+                            <p>{buyers[buyerId].name}</p>
+                            <p>{buyers[buyerId].link}</p>
+                        </Card>
+                    </div>
                 </div>
-            </Draggable>
-
+                <div className="flex justify-center items-center gap-10">
+                    <Button view="outlined-info" size="l" onClick={onclk}>Дальше</Button>
+                </div>
+            </div>
         </div>
+
     )
 }
 

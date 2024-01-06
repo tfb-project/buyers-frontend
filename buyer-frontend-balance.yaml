@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: buyer-frontend
+spec:
+  ports:
+  - port: 8084
+    name: plaintext
+    targetPort: 80
+  selector:
+    app: buyer-frontend
+  type: LoadBalancer
