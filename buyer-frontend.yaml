@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buyer-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: buyer-service
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: buyer-service
+    spec:
+      containers:
+        - name: buyer-frontend
+          image: cr.yandex/crp6a2dj85m4vpo5r6un/buyer-frontend
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
