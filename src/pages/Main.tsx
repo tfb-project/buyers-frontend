@@ -17,7 +17,7 @@ const Main = () => {
     const [coords, setCoords] = useState({x: 0, y: 0});
     useEffect(() => {
         if (buyers.length > 0) return
-        axios.get('https://education.kfirsov.com/tfb/buyers').then(({data: buyers}: { data: { buyers: Buyer[] } }) => {
+        axios.get('https://toadabroad.kfirsov.com/api/buyers').then(({data: buyers}: { data: { buyers: Buyer[] } }) => {
             setBuyers(buyers.buyers)
         }).catch((err) => {
             console.log(err)
