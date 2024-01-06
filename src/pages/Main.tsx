@@ -30,8 +30,8 @@ const Main = () => {
     return (
         <div className="h-dvh flex justify-center items-center">
             <div className="flex flex-col gap-10">
-                <div className="flex justify-center items-center gap-10">
-                    <img className="rounded-t-[7px] max-w-20"
+                <div className="flex justify-center items-center gap-3">
+                    <img className="rounded-[50%] max-w-20"
                          src="./logo512.jpg" alt="" draggable={false}/>
                     <Text variant="display-3">Toad Abroad</Text>
                 </div>
